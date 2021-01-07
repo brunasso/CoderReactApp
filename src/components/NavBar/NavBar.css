@@ -1,0 +1,16 @@
+#iconMarket{
+    cursor: pointer;
+    width: 6%;
+}
+
+#iconMarket:hover{
+    transform: rotate(-360deg);
+    transition: 1s;
+}
+.mr-auto,
+.Cart{
+    font-size: x-large;
+}
+.Cart{
+    margin-right: 4%;
+}

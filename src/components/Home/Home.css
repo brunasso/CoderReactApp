@@ -1,0 +1,9 @@
+.homeStyle{
+    height: 100vh;
+    display: flex;
+    margin-top: ;
+}
+.homeStyle button{
+    border-radius: 7px;
+    background-color: green;
+}
