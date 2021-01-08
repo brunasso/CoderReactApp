@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';  */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import iconmarket from '../../assets/images/eMarket.png' //Importo icono de mi e-mercado para la NAV
+import {CartWidget} from '../CartWidget/CartWidget';
 
 export const NavBar = () => {
     
@@ -29,7 +30,7 @@ export const NavBar = () => {
 
         </Nav>
         <Nav className='Cart'>
-            <Nav.Link href="#Cart">Cart</Nav.Link>
+            <Nav.Link href="#Cart"><CartWidget/></Nav.Link>
         </Nav>
         </Navbar.Collapse>
         </Navbar>
