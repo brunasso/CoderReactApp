@@ -1,9 +1,11 @@
 import React from 'react'
 import './ItemListContainer.css';
+import { ItemCountContainer } from '../ItemCount/ItemCountContainer';
 
 export const ItemListContainer = ({greeting}) => {
 
     return(
+        <>
         <h1>
             {greeting} <br/>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dictumst litora nascetur eget cum quam quisque tempus arcu, nulla nec placerat praesent 
@@ -14,5 +16,9 @@ export const ItemListContainer = ({greeting}) => {
                 imperdiet. Scelerisque nostra dictumst netus primis felis tempus hac sem, sodales torquent iaculis commodo aliquet mattis eget magnis, vivamus potenti
                 laoreet congue leo inceptos ultricies.</p>
         </h1>
+        <div>
+            <ItemCountContainer stock={5} initial={4}/><br/>
+        </div>
+        </>
     )
 }
