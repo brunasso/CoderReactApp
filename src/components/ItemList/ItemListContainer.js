@@ -1,12 +1,35 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import './ItemListContainer.css';
-import { ItemCountContainer } from '../ItemCount/ItemCountContainer';
+import { ItemList } from '../ItemList/ItemList';
+
+const productos = [
+    {id: 1, nombre: "IPA", imagen: "https://i.ibb.co/2cXKTgv/IPA.png", alt: "IPA", initial: 4, stock:7},
+    {id: 2, nombre: "STOUT",imagen: "https://i.ibb.co/4fF9XPM/STOUT.png", alt: "STOUT", initial: 1, stock:7},
+    {id: 3, nombre: "BLONDE",imagen: "https://i.ibb.co/FBNYM0X/BLONDE.png", alt: "BLONDE", initial: 4, stock:7},
+    {id: 4, nombre: "LAGER",imagen: "https://i.ibb.co/cwtcr45/LAGER.png", alt: "LAGER", initial: 2, stock:0}
+]
 
 export const ItemListContainer = ({greeting}) => {
 
+        const [products, setProductos] = useState([])
+
+        useEffect(() => {
+            const promesa = new Promise((resolve, reject) => {
+                setTimeout(()=>{
+                    resolve(productos);
+                }, 2000)
+            })
+    
+            promesa.then( data =>{
+                console.log(data);
+                setProductos(data);
+            })
+        }, [])
+
+        
     return(
         <>
-        <h1>
+        {/*<h1>
             {greeting} <br/>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dictumst litora nascetur eget cum quam quisque tempus arcu, nulla nec placerat praesent 
                 sociosqu justo. Ante ridiculus fringilla cubilia taciti urna erat, convallis consequat felis nascetur habitant odio, per non proin venenatis nostra.
@@ -15,9 +38,9 @@ export const ItemListContainer = ({greeting}) => {
                 dui. Mauris natoque sed proin sollicitudin est venenatis conubia, lobortis urna ornare pulvinar fames platea sagittis, dui fusce vehicula aenean ac 
                 imperdiet. Scelerisque nostra dictumst netus primis felis tempus hac sem, sodales torquent iaculis commodo aliquet mattis eget magnis, vivamus potenti
                 laoreet congue leo inceptos ultricies.</p>
-        </h1>
+        </h1>*/}
         <div>
-            <ItemCountContainer stock={5} initial={4}/><br/>
+            <ItemList products={products}/><br/>
         </div>
         </>
     )

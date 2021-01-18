@@ -1,6 +1,6 @@
 import React from 'react'
 import './NavBar.css';
-import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import {Navbar, Nav} from 'react-bootstrap';
 /* import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';  */
@@ -13,7 +13,7 @@ export const NavBar = () => {
     return(
 
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <img id="iconMarket" src={iconmarket}/>
+        <img id="iconMarket" alt="Icon Market" src={iconmarket}/>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">

@@ -6,8 +6,9 @@ function App() {
   return (
     <div className="App">
       <NavBar/>
+      <br/>
       <ItemListContainer greeting={'Bienvenido compradores!'}/>
-      <header className="App-header" />
+      {/*<header className="App-header"/>*/}
     </div>
   );
 }

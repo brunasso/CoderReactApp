@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { ItemCount } from './ItemCount'
 
 export const ItemCountContainer = ({initial, stock}) => {
