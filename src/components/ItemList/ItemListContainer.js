@@ -3,10 +3,10 @@ import './ItemListContainer.css';
 import { ItemList } from '../ItemList/ItemList';
 
 const productos = [
-    {id: 1, nombre: "IPA", imagen: "https://i.ibb.co/2cXKTgv/IPA.png", alt: "IPA", initial: 4, stock:7},
-    {id: 2, nombre: "STOUT",imagen: "https://i.ibb.co/4fF9XPM/STOUT.png", alt: "STOUT", initial: 1, stock:7},
-    {id: 3, nombre: "BLONDE",imagen: "https://i.ibb.co/FBNYM0X/BLONDE.png", alt: "BLONDE", initial: 4, stock:7},
-    {id: 4, nombre: "LAGER",imagen: "https://i.ibb.co/cwtcr45/LAGER.png", alt: "LAGER", initial: 2, stock:0}
+    {id: 1, nombre: "IPA", imagen: "https://i.ibb.co/2cXKTgv/IPA.png", alt: "IPA", detalle: 'Es un estilo de Cerveza, que utiliza el Lúpulo y IPA cebada ', initial: 4, stock:7},
+    {id: 2, nombre: "STOUT",imagen: "https://i.ibb.co/4fF9XPM/STOUT.png", alt: "STOUT", detalle: 'Es un estilo de Cerveza, que utiliza el Lúpulo y STOUT cebada ', initial: 1, stock:7},
+    {id: 3, nombre: "BLONDE",imagen: "https://i.ibb.co/FBNYM0X/BLONDE.png", alt: "BLONDE", detalle: 'Es un estilo de Cerveza, que utiliza el Lúpulo BLONDE y cebada ', initial: 4, stock:7},
+    {id: 4, nombre: "LAGER",imagen: "https://i.ibb.co/cwtcr45/LAGER.png", alt: "LAGER", detalle: 'Es un estilo de Cerveza, que utiliza el Lúpulo LAGER y cebada ', initial: 2, stock:0}
 ]
 
 export const ItemListContainer = ({greeting}) => {

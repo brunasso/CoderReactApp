@@ -1,0 +1,9 @@
+.detail{
+    width: 25%;
+    height: 35%;
+}
+h4.detail{
+    display: inline-block;
+    text-align: center;
+    width: 70%;
+}
