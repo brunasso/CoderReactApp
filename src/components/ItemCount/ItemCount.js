@@ -10,6 +10,7 @@ export const ItemCount = ({minTotal, maxTotal, onAdd, total, error}) => {
                 <strong><span style={{margin: '3%', fontSize: '125%'}}>{total}</span></strong>
             <button className="btn btn-light" onClick={maxTotal}> + </button><br/><br/>
             <button className="btn btn-light" onClick={onAdd}>Agregar al carrito</button>
+            <br/><br/>
         </div>
     )
 }

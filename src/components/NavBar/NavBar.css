@@ -1,6 +1,7 @@
 #iconMarket{
     cursor: pointer;
-    width: 6%;
+    width: 65%;
+    height: 100%;
 }
 
 #iconMarket:hover{

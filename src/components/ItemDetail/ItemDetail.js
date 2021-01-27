@@ -1,8 +1,10 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import './ItemDetail.css'
+import { ItemCountContainer } from '../ItemCount/ItemCountContainer';
 
 export const ItemDetail = ({detail}) => {
-    console.log(detail)
+
+    
     return(
         <>
             <div>
@@ -12,6 +14,9 @@ export const ItemDetail = ({detail}) => {
                 </div>
                 <h4 className="detail">{detail.detalle}</h4><br/><br/>
                 <h2>Precio: ${detail.precio}</h2><br/>
+                { detail.initial &&
+                <ItemCountContainer initial={detail.initial} stock={detail.stock}/>
+                }
             </div>
         </>
     )
