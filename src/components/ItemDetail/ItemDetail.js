@@ -1,10 +1,13 @@
-import React,{useState, useEffect} from 'react'
+import React from 'react'
 import './ItemDetail.css'
 import { ItemCountContainer } from '../ItemCount/ItemCountContainer';
+import {useState} from 'react';
+import { Link } from 'react-router-dom'
 
 export const ItemDetail = ({detail}) => {
 
-    
+        
+        
     return(
         <>
             <div>
@@ -15,7 +18,7 @@ export const ItemDetail = ({detail}) => {
                 <h4 className="detail">{detail.detalle}</h4><br/><br/>
                 <h2>Precio: ${detail.precio}</h2><br/>
                 { detail.initial &&
-                <ItemCountContainer initial={detail.initial} stock={detail.stock}/>
+                <ItemCountContainer initial={detail.initial} stock={detail.stock} />
                 }
             </div>
         </>

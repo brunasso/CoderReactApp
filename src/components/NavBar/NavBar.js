@@ -1,6 +1,6 @@
 import React from 'react'
 import './NavBar.css';
-import {Navbar, Nav} from 'react-bootstrap';
+import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 /* import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';  */
@@ -24,17 +24,27 @@ export const NavBar = () => {
                 <Nav.Link href="#Home">Home</Nav.Link>
             </Link>
 
-            <Link to={'/category/:id'}>
-            <Nav.Link href="#Categories">Categories</Nav.Link>
-            </Link>
+            <Link to={'/category/:category'}>
 
-           {/*  <NavDropdown title="Cart" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown> */}
+        <NavDropdown title="Categories" id="collasible-nav-dropdown">
+        <Link to={'/category/IPA'}>
+            <NavDropdown.Item href="#action/3.1">IPA</NavDropdown.Item>
+        </Link>
+
+        <Link to={'/category/STOUT'}>
+            <NavDropdown.Item href="#action/3.2">STOUT</NavDropdown.Item>
+        </Link>
+            
+        <Link to={'/category/BLONDE'}>
+            <NavDropdown.Item href="#action/3.3">BLONDE</NavDropdown.Item>
+        </Link>
+
+        <Link to={'/category/LAGER'}>
+            <NavDropdown.Item href="#action/3.4">LAGER</NavDropdown.Item>
+        </Link>
+        
+        </NavDropdown>
+        </Link>
 
         </Nav>
         <Nav className='Cart'>

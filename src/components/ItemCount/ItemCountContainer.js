@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import { ItemCount } from './ItemCount'
+import { Link } from 'react-router-dom'
 
-export const ItemCountContainer = ({initial, stock}) => {
+
+export const ItemCountContainer = ({initial, stock,existeArticulo}) => {
 
     //useState para mostrar mensajes de errores en pantalla
+    const [hayAlgo, setHayAlgo] = useState(false);
     const [error, setError ] = useState('')
 
     var realInitial;
@@ -29,13 +32,26 @@ export const ItemCountContainer = ({initial, stock}) => {
     }
 
     const agregarCarrito = () => {
-        stock <= 0 ? setError ("No hay stock disponible") :
-        setError `Se agregaron ${total} artículos al carrito`
+        stock <= 0 ? setError ("No hay stock disponible")  :
+        setError `Se agregaron ${total} artículos al carrito`;
+
+        //Habilito botón de "Continuar a compra"
+        if (stock > 0) setHayAlgo(true) 
     }
 
     return(
         <>
-            <ItemCount minTotal={minusTotal} maxTotal={plusTotal} onAdd={agregarCarrito} total={total} error={error}/>
+            
+            { 
+                hayAlgo ?
+                <Link to='/cart'>
+                    <button className="btn btn-light">Continuar a Compra</button>
+                    <br/><br/>
+                </Link>  :
+                
+                <ItemCount minTotal={minusTotal} maxTotal={plusTotal} onAdd={agregarCarrito} total={total} error={error} />  
+
+            }
         </>
     )
 }
