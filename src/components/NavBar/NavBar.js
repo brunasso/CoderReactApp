@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import './NavBar.css';
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 /* import Nav from 'react-bootstrap/Nav';
@@ -10,12 +10,12 @@ import {CartWidget} from '../CartWidget/CartWidget';
 import {Link} from 'react-router-dom'
 
 export const NavBar = () => {
-    
+
     return(
         <>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Link to={'/'}>
-            <img id="iconMarket" alt="Icon Market" src={iconmarket}/>
+                <img id="iconMarket" alt="Icon Market" src={iconmarket}/>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

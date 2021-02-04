@@ -4,6 +4,7 @@ import { ItemListContainer } from './components/ItemList/ItemListContainer';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import {ItemDetailContainer} from './components/ItemDetail/ItemDetailContainer'
 import {Cart} from './components/Cart/Cart'
+import {Context} from './components/CartContext/CartContext'
 
 
 
@@ -11,6 +12,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+      <Context>
           <NavBar/>
         <Switch>
 
@@ -31,6 +33,7 @@ function App() {
           </Route>      
           
         </Switch>
+        </Context>
       </BrowserRouter>
       {/*<header className="App-header"/>*/}
     </div>

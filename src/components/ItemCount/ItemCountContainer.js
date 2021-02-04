@@ -1,13 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { ItemCount } from './ItemCount'
 import { Link } from 'react-router-dom'
+import {CartContext} from '../CartContext/CartContext'
 
 
-export const ItemCountContainer = ({initial, stock,existeArticulo}) => {
+export const ItemCountContainer = ({initial, stock, onAdd}) => {
+
+    const {setQuantity} = useContext(CartContext)
 
     //useState para mostrar mensajes de errores en pantalla
     const [hayAlgo, setHayAlgo] = useState(false);
     const [error, setError ] = useState('')
+    
 
     var realInitial;
     stock < initial ? realInitial = stock: realInitial = initial
@@ -36,7 +40,11 @@ export const ItemCountContainer = ({initial, stock,existeArticulo}) => {
         setError `Se agregaron ${total} artículos al carrito`;
 
         //Habilito botón de "Continuar a compra"
-        if (stock > 0) setHayAlgo(true) 
+        if (stock > 0) {
+            setHayAlgo(true);
+            setQuantity(total);
+            onAdd(total);
+        }
     }
 
     return(
@@ -45,11 +53,11 @@ export const ItemCountContainer = ({initial, stock,existeArticulo}) => {
             { 
                 hayAlgo ?
                 <Link to='/cart'>
-                    <button className="btn btn-light">Continuar a Compra</button>
+                    <button className="btn btn-light">Terminar compra</button>
                     <br/><br/>
                 </Link>  :
                 
-                <ItemCount minTotal={minusTotal} maxTotal={plusTotal} onAdd={agregarCarrito} total={total} error={error} />  
+                <ItemCount minTotal={minusTotal} maxTotal={plusTotal} onAdd={agregarCarrito} error={error} total={total}/>  
 
             }
         </>

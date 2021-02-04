@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import './ItemCount.css'
 
-export const ItemCount = ({minTotal, maxTotal, onAdd, total, error}) => {
+export const ItemCount = ({minTotal, maxTotal, onAdd, error, total}) => {
+
+    
 
     return(
         <div>
@@ -9,7 +11,7 @@ export const ItemCount = ({minTotal, maxTotal, onAdd, total, error}) => {
             <button class="btn btn-light" onClick={minTotal} > - </button> 
                 <strong><span style={{margin: '3%', fontSize: '125%'}}>{total}</span></strong>
             <button className="btn btn-light" onClick={maxTotal}> + </button><br/><br/>
-            <button className="btn btn-light" onClick={onAdd}>Agregar al carrito</button>
+            <button className="btn btn-light" onClick={onAdd}>Quiero {total}</button>
             <br/><br/>
         </div>
     )

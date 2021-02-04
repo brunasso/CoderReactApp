@@ -16,10 +16,6 @@ export const ItemListContainer = () => {
         //const [products, setProductos] = useState([])
         const {category} = useParams();
 
-        useEffect(() => {
-            
-        }, [category])
-
 
         useEffect(() => {
             const promesa = new Promise((resolve, reject) => {
@@ -30,8 +26,6 @@ export const ItemListContainer = () => {
 
     
             promesa.then( data =>{
-                console.log(data);
-                //setProductos(data);
                 let result = data.filter(producto => producto.categoria == `${category}`)
                 result.length > 0? setCategoryProducts(result) : setCategoryProducts(data);
                 
