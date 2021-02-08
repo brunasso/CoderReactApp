@@ -25,14 +25,15 @@ export const ItemDetail = ({detail}) => {
                     <img className="detail" src={detail.imagen} alt={detail.alt}/><br/><br/>
                 </div>
                 <h4 className="detail">{detail.detalle}</h4><br/><br/>
-                <h2>Precio: ${detail.precio}</h2><br/>
                 { hayAlgo ?
                 <Link to='/cart'>
                 <button className="btn btn-light">Terminar compra</button>
                 <br/><br/>
                 </Link>  : detail.initial && 
+                <>
+                <h2>Precio: ${detail.precio}</h2><br/>
                 <ItemCountContainer initial={detail.initial} stock={detail.stock} onAdd={onAdd} />
-                
+                </>
                 }
                 
             </div>

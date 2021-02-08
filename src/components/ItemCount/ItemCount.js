@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import './ItemCount.css'
 
 export const ItemCount = ({minTotal, maxTotal, onAdd, error, total}) => {

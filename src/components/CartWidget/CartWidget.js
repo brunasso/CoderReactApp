@@ -7,12 +7,14 @@ import './CartWidget.css'
 
 export const CartWidget = () => {
 
-    const {quantity} = useContext(CartContext)
+    const {globalQuantity} = useContext(CartContext)
 
     return(
         <Link to='/cart'>
         <div className="counterCart">
-            <span >{quantity}</span>
+            { globalQuantity > 0 &&
+                <span >{globalQuantity}</span>
+            }
             <FontAwesomeIcon icon={faShoppingCart} size='lg'/>
         </div>
         </Link>

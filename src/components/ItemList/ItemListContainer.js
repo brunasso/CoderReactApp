@@ -26,7 +26,7 @@ export const ItemListContainer = () => {
 
     
             promesa.then( data =>{
-                let result = data.filter(producto => producto.categoria == `${category}`)
+                let result = data.filter(producto => producto.categoria === `${category}`)
                 result.length > 0? setCategoryProducts(result) : setCategoryProducts(data);
                 
             })

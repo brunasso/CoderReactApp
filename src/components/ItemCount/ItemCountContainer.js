@@ -1,12 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect} from 'react'
 import { ItemCount } from './ItemCount'
 import { Link } from 'react-router-dom'
-import {CartContext} from '../CartContext/CartContext'
 
 
 export const ItemCountContainer = ({initial, stock, onAdd}) => {
 
-    const {setQuantity} = useContext(CartContext)
 
     //useState para mostrar mensajes de errores en pantalla
     const [hayAlgo, setHayAlgo] = useState(false);
@@ -42,7 +40,6 @@ export const ItemCountContainer = ({initial, stock, onAdd}) => {
         //Habilito botón de "Continuar a compra"
         if (stock > 0) {
             setHayAlgo(true);
-            setQuantity(total);
             onAdd(total);
         }
     }

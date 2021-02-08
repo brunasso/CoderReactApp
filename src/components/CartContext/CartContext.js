@@ -8,42 +8,42 @@ export const Context = ({children}) => {
 
     
     
-    const [quantity, setQuantity] = useState(0);
+    const [globalQuantity, setGlobalQuantity] = useState(0);
 
     //Items agregados en el carrito 
-    const itemToAdd = [];
+    
+
+    //Carritos que estan en el cart
     const [itemsCart, setItemCart] = useState ([])
 
     //Ad items to cart
     const addItem = (item, quantity) => {
-        
-        if (isInCart(item)){ 
-            itemsCart.splice(item.id-1,0,item)
+        let itemToAddCart = itemsCart.find(itemCart => itemCart.id === item.id)
+        let plusGlobalQuantity = globalQuantity + quantity
+        setGlobalQuantity(plusGlobalQuantity)
+        if (itemToAddCart){
+            itemToAddCart.quantity += quantity;
+            setItemCart([...itemsCart])
+            console.log(itemsCart)
+        }
+        else{
+            setItemCart([...itemsCart, {...item, quantity}])
         }
         console.log(itemsCart)
     }
 
-    const removeItem = (item, quantity) => {
-        let removeItemId = itemsCart.filter(itemCart => itemCart.id === item)
-        
+    const removeItem = (idItemToRemove) => {
+        itemsCart.splice(itemsCart.findIndex(itemCart => itemCart.id === idItemToRemove), 1)
+        setItemCart([...itemsCart])   
     }
 
     const clear = () => {
         setItemCart([]);
     }
 
-    const isInCart = (item) => {
-        let itemToAddCart = itemsCart.filter(itemCart => itemCart.id === item.id)
-        if (itemToAddCart.length === 0)
-        {
-            return true
-        }else{
-            return false
-        }
-    }
     
     return (
-    <CartContext.Provider value={{quantity, setQuantity, addItem}}>
+    <CartContext.Provider value={{globalQuantity, itemsCart, setGlobalQuantity, addItem, removeItem, clear}}>
         {children}
     </CartContext.Provider>)
 }

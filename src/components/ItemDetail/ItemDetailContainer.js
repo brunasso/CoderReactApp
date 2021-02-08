@@ -14,10 +14,6 @@ export const ItemDetailContainer = () => {
     const [detail, setDetail] = useState({});
     const {id} = useParams();
     
-    useEffect(() => {
-        //console.log(id);
-    },[id])
-
     
 
     useEffect(() => {
@@ -32,7 +28,7 @@ export const ItemDetailContainer = () => {
                 setDetail(response[id -1])
                 //console.log(detail)
             })
-    }, [])
+    }, [id])
 
     return(
         <>
