@@ -1,13 +1,44 @@
-import React, {useContext} from 'react'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import React, {useContext, useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import {CartContext} from '../CartContext/CartContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getFirestore } from '../Backend/Firebase';
+import firebase from 'firebase/app'
 
 export const Cart = () => {
 
     const {itemsCart, removeItem} = useContext(CartContext)
 
+    const [totalPrize, setTotalPrize] = useState(0)
+    const [order, setOrder] = useState({})
+    const [orderId, setOrderId] = useState({})
+
+    useEffect(() => {
+        itemsCart.map(itemCart => setTotalPrize(anteriorTotal=> anteriorTotal+(itemCart.quantity*itemCart.precio)))
+    }, [itemsCart])
+
+    useEffect(() => {
+        setOrder( {
+            buyer: 'Comprador',
+            items: Cart,
+            date: firebase.firestore.Timestamp.fromDate(new Date()),
+            total: totalPrize
+        })
+    }, [totalPrize])
+
     const quitarItem = (id) => {
         removeItem(id)
+    }   
+
+    const handleCompra = () =>{
+        const db = getFirestore();
+
+        const orderDb =  db.collection("orders")
+        orderDb.add(order)
+        .then(({id}) => {
+            setOrderId(id)
+        })
     }
 
     return(
@@ -31,20 +62,25 @@ export const Cart = () => {
                 <td>{itemCart.precio} </td>
                 <td>{itemCart.quantity}</td>
                 <td>{itemCart.quantity * itemCart.precio} </td>
-                <td><button id={`${itemCart.id}`}>Quitar item</button></td>
+                <td onClick={console.log('clickeado')}><FontAwesomeIcon icon={faTrash}  size='lg'/></td>
             </tr>
             )
         }{ itemsCart.length > 0 ?
          <><br/>
         <tr>
-            <td>Precio final: </td>
+            <th>Precio final:</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{totalPrize}</td>
        </tr>
+       <button className='btn btn-dark'>Finalizar Compra</button>
        </>
        :
         <>
        <h2>No hay productos en el carrito</h2>
        <Link to='/'>
-       <button className='btn btn-light'>Ir a comprar algo</button>
+       <button className='btn btn-light' onClick={handleCompra}>Ir a comprar algo</button>
        </Link>
        </>
        } 
@@ -53,3 +89,4 @@ export const Cart = () => {
         </>
     )
 }
+

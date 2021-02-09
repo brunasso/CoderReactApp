@@ -29,7 +29,6 @@ export const Context = ({children}) => {
         else{
             setItemCart([...itemsCart, {...item, quantity}])
         }
-        console.log(itemsCart)
     }
 
     const removeItem = (idItemToRemove) => {

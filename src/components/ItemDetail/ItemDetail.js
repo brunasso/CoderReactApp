@@ -8,7 +8,7 @@ import {CartContext} from '../CartContext/CartContext'
 export const ItemDetail = ({detail}) => {
 
         const [hayAlgo, setHayAlgo] = useState(false);
-
+        const initial = 1;
         const {addItem} = useContext(CartContext)
         
         const onAdd = (total) =>{
@@ -29,10 +29,10 @@ export const ItemDetail = ({detail}) => {
                 <Link to='/cart'>
                 <button className="btn btn-light">Terminar compra</button>
                 <br/><br/>
-                </Link>  : detail.initial && 
+                </Link>  : 
                 <>
                 <h2>Precio: ${detail.precio}</h2><br/>
-                <ItemCountContainer initial={detail.initial} stock={detail.stock} onAdd={onAdd} />
+                <ItemCountContainer initial={initial} stock={detail.stock} onAdd={onAdd} />
                 </>
                 }
                 

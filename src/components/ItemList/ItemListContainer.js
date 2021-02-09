@@ -2,42 +2,46 @@ import React, {useState, useEffect} from 'react'
 import './ItemListContainer.css';
 import { ItemList } from '../ItemList/ItemList';
 import {useParams} from 'react-router-dom'
+import {getFirestore} from '../Backend/Firebase/index'
 
-const productos = [
-    {id: 1, nombre: "IPA", imagen: "https://i.ibb.co/2cXKTgv/IPA.png", alt: "IPA", categoria:'IPA', detalle: 'Es un estilo de Cerveza, que utiliza el Lúpulo y IPA cebada ', initial: 4, stock:7},
-    {id: 2, nombre: "STOUT",imagen: "https://i.ibb.co/4fF9XPM/STOUT.png", alt: "STOUT", categoria:'STOUT', detalle: 'Es un estilo de Cerveza, que utiliza el Lúpulo y STOUT cebada ', initial: 1, stock:7},
-    {id: 3, nombre: "BLONDE",imagen: "https://i.ibb.co/FBNYM0X/BLONDE.png", alt: "BLONDE", categoria:'BLONDE', detalle: 'Es un estilo de Cerveza, que utiliza el Lúpulo BLONDE y cebada ', initial: 4, stock:7},
-    {id: 4, nombre: "LAGER",imagen: "https://i.ibb.co/cwtcr45/LAGER.png", alt: "LAGER", categoria:'LAGER', detalle: 'Es un estilo de Cerveza, que utiliza el Lúpulo LAGER y cebada ', initial: 2, stock:0}
-]
 
 export const ItemListContainer = () => {
 
         const [categoryProducts, setCategoryProducts] = useState([]);
         //const [products, setProductos] = useState([])
         const {category} = useParams();
-
+        const [loading, setLoading] = useState(true)
 
         useEffect(() => {
-            const promesa = new Promise((resolve, reject) => {
-                setTimeout(()=>{
-                    resolve(productos);
-                }, 2000)
+            let db = getFirestore();
+            let itemsDb = db.collection("items");
+            itemsDb.get()
+            .then((querySnapshot)=>{
+                querySnapshot.size === 1 && console.log('Hay 1 item')
+                let arrayItems = querySnapshot.docs.map(doc => {
+                    return({
+                        id: doc.id,
+                        ...doc.data()
+                    })
+                })
+                /// let result = arrayItems.filter(producto => producto.categoria === `${category}`)
+                const categorySelected = itemsDb.where('categoria', '===', `${category}`)
+                categorySelected.length > 0? setCategoryProducts(categorySelected) : setCategoryProducts(arrayItems);
+                setLoading(false);
             })
-
-    
-            promesa.then( data =>{
-                let result = data.filter(producto => producto.categoria === `${category}`)
-                result.length > 0? setCategoryProducts(result) : setCategoryProducts(data);
-                
-            })
-        }, [category])
+        },[category])
 
         
     return(
         <>
+        {loading ? 
+        <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+        :
         <div>
             <ItemList products={categoryProducts}/><br/>
         </div>
-        </>
+        }</>
     )
 }
