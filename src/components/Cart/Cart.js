@@ -74,13 +74,13 @@ export const Cart = () => {
             <td></td>
             <td>{totalPrize}</td>
        </tr>
-       <button className='btn btn-dark'>Finalizar Compra</button>
+       <button className='btn btn-dark'  onClick={handleCompra} >Finalizar Compra</button>
        </>
        :
         <>
        <h2>No hay productos en el carrito</h2>
        <Link to='/'>
-       <button className='btn btn-light' onClick={handleCompra}>Ir a comprar algo</button>
+       <button className='btn btn-light'>Ir a comprar algo</button>
        </Link>
        </>
        } 
