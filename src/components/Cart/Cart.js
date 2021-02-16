@@ -8,7 +8,7 @@ import firebase from 'firebase/app'
 
 export const Cart = () => {
 
-    const {itemsCart, removeItem} = useContext(CartContext)
+    const {itemsCart, removeItem, clearCart} = useContext(CartContext)
 
     const [totalPrize, setTotalPrize] = useState(0)
     const [order, setOrder] = useState({})
@@ -20,16 +20,12 @@ export const Cart = () => {
 
     useEffect(() => {
         setOrder( {
-            buyer: 'Comprador',
+            buyer: 'Bruno',
             items: Cart,
             date: firebase.firestore.Timestamp.fromDate(new Date()),
             total: totalPrize
         })
     }, [totalPrize])
-
-    const quitarItem = (id) => {
-        removeItem(id)
-    }   
 
     const handleCompra = () =>{
         const db = getFirestore();
@@ -39,6 +35,7 @@ export const Cart = () => {
         .then(({id}) => {
             setOrderId(id)
         })
+        clearCart();
     }
 
     return(
