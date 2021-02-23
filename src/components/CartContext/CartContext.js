@@ -38,6 +38,7 @@ export const Context = ({children}) => {
 
     const clearCart = () => {
         setItemCart([]);
+        setGlobalQuantity(0)
     }
 
     

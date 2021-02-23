@@ -10,6 +10,7 @@ export const Cart = () => {
 
     const {itemsCart, removeItem, clearCart} = useContext(CartContext)
 
+    const [compraTrue, setCompraTrue] = useState(false);
     const [totalPrize, setTotalPrize] = useState(0)
     const [order, setOrder] = useState({})
     const [orderId, setOrderId] = useState({})
@@ -19,24 +20,35 @@ export const Cart = () => {
     }, [itemsCart])
 
     useEffect(() => {
-        setOrder( {
+
+        let db = getFirestore();
+        let orders = db.collection('orders');
+
+        const newOrder = {
             buyer: 'Bruno',
-            items: Cart,
+            items: itemsCart,
             date: firebase.firestore.Timestamp.fromDate(new Date()),
             total: totalPrize
+        }
+
+        orders.add(newOrder)
+        .then(({id}) => {
+            setOrderId(newOrder)
+        }).finally(() => {
+            
         })
-    }, [totalPrize])
+
+
+    }, [compraTrue])
+
+
 
     const handleCompra = () =>{
-        const db = getFirestore();
-
-        const orderDb =  db.collection("orders")
-        orderDb.add(order)
-        .then(({id}) => {
-            setOrderId(id)
-        })
+        setCompraTrue(true)
         clearCart();
     }
+
+    
 
     return(
         <>
@@ -59,7 +71,7 @@ export const Cart = () => {
                 <td>{itemCart.precio} </td>
                 <td>{itemCart.quantity}</td>
                 <td>{itemCart.quantity * itemCart.precio} </td>
-                <td onClick={console.log('clickeado')}><FontAwesomeIcon icon={faTrash}  size='lg'/></td>
+                <td> <button id={itemCart.name} onClick={console.log('removido')} className="btn btn-light">Eliminar</button></td>
             </tr>
             )
         }{ itemsCart.length > 0 ?
