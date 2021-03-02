@@ -10,7 +10,8 @@ export const Context = ({children}) => {
     
     const [globalQuantity, setGlobalQuantity] = useState(0);
 
-    //Items agregados en el carrito 
+    //Loading
+    const [loading, setLoading] = useState(true)
     
 
     //Carritos que estan en el cart
@@ -31,9 +32,11 @@ export const Context = ({children}) => {
         }
     }
 
-    const removeItem = (idItemToRemove) => {
+    const removeItem = (idItemToRemove, itemQuantity) => {
         itemsCart.splice(itemsCart.findIndex(itemCart => itemCart.id === idItemToRemove), 1)
-        setItemCart([...itemsCart])   
+        setItemCart([...itemsCart])
+        setGlobalQuantity(globalQuantity-itemQuantity)
+
     }
 
     const clearCart = () => {
@@ -41,9 +44,10 @@ export const Context = ({children}) => {
         setGlobalQuantity(0)
     }
 
+
     
     return (
-    <CartContext.Provider value={{globalQuantity, itemsCart, setGlobalQuantity, addItem, removeItem, clearCart}}>
+    <CartContext.Provider value={{loading, globalQuantity, itemsCart, setLoading, setGlobalQuantity, addItem, removeItem, clearCart}}>
         {children}
     </CartContext.Provider>)
 }

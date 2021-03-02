@@ -5,49 +5,49 @@ import {CartContext} from '../CartContext/CartContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getFirestore } from '../Backend/Firebase';
 import firebase from 'firebase/app'
+import './Cart.css'
 
 export const Cart = () => {
 
     const {itemsCart, removeItem, clearCart} = useContext(CartContext)
 
-    const [compraTrue, setCompraTrue] = useState(false);
     const [totalPrize, setTotalPrize] = useState(0)
     const [order, setOrder] = useState({})
-    const [orderId, setOrderId] = useState({})
+    const [orderId, setOrderId] = useState('')
 
     useEffect(() => {
         itemsCart.map(itemCart => setTotalPrize(anteriorTotal=> anteriorTotal+(itemCart.quantity*itemCart.precio)))
     }, [itemsCart])
 
     useEffect(() => {
-
-        let db = getFirestore();
-        let orders = db.collection('orders');
-
+        
         const newOrder = {
             buyer: 'Bruno',
             items: itemsCart,
             date: firebase.firestore.Timestamp.fromDate(new Date()),
             total: totalPrize
         }
+        setOrder(newOrder)
 
-        orders.add(newOrder)
-        .then(({id}) => {
-            setOrderId(newOrder)
-        }).finally(() => {
-            
-        })
-
-
-    }, [compraTrue])
+    }, [totalPrize])
 
 
 
     const handleCompra = () =>{
-        setCompraTrue(true)
-        clearCart();
+        
+        let db = getFirestore();
+        let orders = db.collection('orders');
+        orders.add(order)
+        .then(({id}) => {
+            let idNueva = id;
+            setOrderId(idNueva)
+            alert(`El id es ${orderId} o el real ${idNueva}`)
+        })
+        .catch((error) => console.log("Ocurrió un error: ", error))
+        .finally(() => {
+            clearCart();
+        })
     }
-
     
 
     return(
@@ -55,7 +55,7 @@ export const Cart = () => {
         <div>
             <h1>Este es el Cart</h1>
         </div>
-        <table width='70%' style={{marginLeft:'8%'}} >
+        <table className="itemsCartUnfolded">
             { itemsCart.length > 0 &&
                 <tr>
                 <th>Artículo</th>
@@ -71,7 +71,7 @@ export const Cart = () => {
                 <td>{itemCart.precio} </td>
                 <td>{itemCart.quantity}</td>
                 <td>{itemCart.quantity * itemCart.precio} </td>
-                <td> <button id={itemCart.name} onClick={console.log('removido')} className="btn btn-light">Eliminar</button></td>
+                <td> <FontAwesomeIcon className="deleteItem" icon={faTrash} id={itemCart.name} onClick={() => removeItem(itemCart.id, itemCart.quantity)} /></td>
             </tr>
             )
         }{ itemsCart.length > 0 ?

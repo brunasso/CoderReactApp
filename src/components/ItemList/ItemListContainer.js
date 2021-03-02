@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import './ItemListContainer.css';
 import { ItemList } from '../ItemList/ItemList';
 import {useParams} from 'react-router-dom'
 import {getFirestore} from '../Backend/Firebase/index'
+import {CartContext} from '../CartContext/CartContext'
 
 
 export const ItemListContainer = () => {
@@ -10,23 +11,24 @@ export const ItemListContainer = () => {
         const [categoryProducts, setCategoryProducts] = useState([]);
         //const [products, setProductos] = useState([])
         const {category} = useParams();
-        const [loading, setLoading] = useState(true)
+
+        const {loading, setLoading} = useContext(CartContext)
+        
 
         useEffect(() => {
+            setLoading(true)
             let db = getFirestore();
-            let itemsDb = db.collection("items");
+            let itemsDb;
+            category !== undefined ? itemsDb = db.collection("items").where('categoria', '==', `${category}`) : itemsDb = db.collection("items");
             itemsDb.get()
             .then((querySnapshot)=>{
-                querySnapshot.size === 1 && console.log('Hay 1 item')
                 let arrayItems = querySnapshot.docs.map(doc => {
                     return({
                         id: doc.id,
                         ...doc.data()
                     })
                 })
-                /// let result = arrayItems.filter(producto => producto.categoria === `${category}`)
-                const categorySelected = itemsDb.where('categoria', '===', `${category}`)
-                categorySelected.length > 0? setCategoryProducts(categorySelected) : setCategoryProducts(arrayItems);
+                setCategoryProducts(arrayItems);
                 setLoading(false);
             })
         },[category])

@@ -1,0 +1,7 @@
+.itemsCartUnfolded{
+    width:70%;
+    margin-left : 8%;
+}
+.deleteItem{
+    cursor: pointer;
+}
