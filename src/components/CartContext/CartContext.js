@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 
 export const CartContext = React.createContext(0)
 
@@ -8,6 +8,8 @@ export const Context = ({children}) => {
 
     
     
+    const [totalPrize, setTotalPrize] = useState(0)
+
     const [globalQuantity, setGlobalQuantity] = useState(0);
 
     //Loading
@@ -16,6 +18,14 @@ export const Context = ({children}) => {
 
     //Carritos que estan en el cart
     const [itemsCart, setItemCart] = useState ([])
+
+
+
+    useEffect(() => {
+        setTotalPrize(0)
+        itemsCart.map(itemCart => setTotalPrize(anteriorTotal=> anteriorTotal+(itemCart.quantity*itemCart.precio)))
+    }, [itemsCart])
+    
 
     //Ad items to cart
     const addItem = (item, quantity) => {
@@ -42,12 +52,13 @@ export const Context = ({children}) => {
     const clearCart = () => {
         setItemCart([]);
         setGlobalQuantity(0)
+        setTotalPrize(0)
     }
 
 
     
     return (
-    <CartContext.Provider value={{loading, globalQuantity, itemsCart, setLoading, setGlobalQuantity, addItem, removeItem, clearCart}}>
+    <CartContext.Provider value={{loading, globalQuantity, itemsCart, setLoading, setGlobalQuantity, addItem, removeItem, clearCart, totalPrize}}>
         {children}
     </CartContext.Provider>)
 }

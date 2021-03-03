@@ -9,15 +9,10 @@ import './Cart.css'
 
 export const Cart = () => {
 
-    const {itemsCart, removeItem, clearCart} = useContext(CartContext)
+    const {itemsCart, removeItem, clearCart, totalPrize} = useContext(CartContext)
 
-    const [totalPrize, setTotalPrize] = useState(0)
     const [order, setOrder] = useState({})
     const [orderId, setOrderId] = useState('')
-
-    useEffect(() => {
-        itemsCart.map(itemCart => setTotalPrize(anteriorTotal=> anteriorTotal+(itemCart.quantity*itemCart.precio)))
-    }, [itemsCart])
 
     useEffect(() => {
         
@@ -34,6 +29,7 @@ export const Cart = () => {
 
 
     const handleCompra = () =>{
+    
         
         let db = getFirestore();
         let orders = db.collection('orders');
@@ -41,7 +37,7 @@ export const Cart = () => {
         .then(({id}) => {
             let idNueva = id;
             setOrderId(idNueva)
-            alert(`El id es ${orderId} o el real ${idNueva}`)
+            alert(`El id es de su compra es: ${idNueva}`)
         })
         .catch((error) => console.log("Ocurrió un error: ", error))
         .finally(() => {
@@ -82,14 +78,14 @@ export const Cart = () => {
             <td></td>
             <td></td>
             <td>{totalPrize}</td>
-       </tr>
-       <button className='btn btn-dark'  onClick={handleCompra} >Finalizar Compra</button>
+       </tr> <br/>
+       <button className='btn btn-light' onClick={handleCompra} >Finalizar Compra</button>
        </>
        :
         <>
        <h2>No hay productos en el carrito</h2>
        <Link to='/'>
-       <button className='btn btn-light'>Ir a comprar algo</button>
+       <button className='btn btn-dark'>Ir a comprar algo</button>
        </Link>
        </>
        } 
